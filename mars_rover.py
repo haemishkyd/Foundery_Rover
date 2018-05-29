@@ -28,9 +28,9 @@ class Rover:
 
     def print_current_coordinates(self):
         if (self.valid_start):
-            print(str(self.x) + " " + str(self.y) + " " + self.o)
+            smart_print((str(self.x) + " " + str(self.y) + " " + self.o),0)
         else:
-            print("This rover did not land on the plateau and is now damaged.")
+            smart_print(("This rover did not land on the plateau and is now damaged."),0)
 
 
     def step_instruction(self):
