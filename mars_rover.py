@@ -1,4 +1,5 @@
 import sys
+import os
 
 GridSizeX = 0
 GridSizeY = 0
@@ -114,34 +115,37 @@ if __name__ == "__main__":
     else:
         output_fh = open("merchant_guide_output.txt", 'w')
         output_fh.close()
-        # Get the file that contains the instructions
-        fh = open(sys.argv[1], 'r')
-        for line in fh:
-            if line.startswith('#'):
-                pass
-            else:
-                AllTheLines.append(line)
-        # Extract the size of the grid and set it as global
-        size_of_grid = AllTheLines[0]
-        split_sog = size_of_grid.split()
-        GridSizeX = int(split_sog[0])
-        GridSizeY = int(split_sog[1])    
-        smart_print("Grid Size X: "+str(GridSizeX)+ " Y: "+str(GridSizeY),0)
-        # Extract the data from the file in order to create the rovers
-        for line_idx in range(0,len(AllTheLines)):            
-            # We have already pulled out the grid size.
-            if line_idx == 0:
-                continue
-            if line_idx % 2 == 0:
-                continue 
-            start_pos_array.append(AllTheLines[line_idx])
-            instructions_array.append(AllTheLines[line_idx+1])            
-        # Now create the rovers with the data extracted in the last step
-        create_rovers (start_pos_array,instructions_array)
-        # Each rover object contains its own instructions so just execute them 
-        for each_rover in RoverArray:        
-            for instr_idx in range(0, each_rover.number_of_instructions()):
-                each_rover.step_instruction()
-            # Print the final result for each rover
-            each_rover.print_current_coordinates()
+        if not os.path.exists(sys.argv[1]):
+            smart_print("Much like life on mars, I can't find "+sys.argv[1], 0)
+        else:
+            # Get the file that contains the instructions
+            fh = open(sys.argv[1], 'r')
+            for line in fh:
+                if line.startswith('#'):
+                    pass
+                else:
+                    AllTheLines.append(line)
+            # Extract the size of the grid and set it as global
+            size_of_grid = AllTheLines[0]
+            split_sog = size_of_grid.split()
+            GridSizeX = int(split_sog[0])
+            GridSizeY = int(split_sog[1])    
+            smart_print("Grid Size X: "+str(GridSizeX)+ " Y: "+str(GridSizeY),0)
+            # Extract the data from the file in order to create the rovers
+            for line_idx in range(0,len(AllTheLines)):            
+                # We have already pulled out the grid size.
+                if line_idx == 0:
+                    continue
+                if line_idx % 2 == 0:
+                    continue 
+                start_pos_array.append(AllTheLines[line_idx])
+                instructions_array.append(AllTheLines[line_idx+1])            
+            # Now create the rovers with the data extracted in the last step
+            create_rovers (start_pos_array,instructions_array)
+            # Each rover object contains its own instructions so just execute them 
+            for each_rover in RoverArray:        
+                for instr_idx in range(0, each_rover.number_of_instructions()):
+                    each_rover.step_instruction()
+                # Print the final result for each rover
+                each_rover.print_current_coordinates()
         
