@@ -4,6 +4,8 @@ GridSizeX = 0
 GridSizeY = 0
 global_script_verbosity = 0
 RoverArray = []
+PossibleDirections=['N','S','E','W']
+AllTheLines=[]
 
 class Rover:
 
@@ -11,7 +13,7 @@ class Rover:
         self.x = x
         self.y = y
         self.o = o
-        if ((x<=GridSizeX) and (y<=GridSizeY)):
+        if ((x<=GridSizeX) and (y<=GridSizeY) and (self.o in PossibleDirections)):
             self.valid_start = True
         else:
             self.valid_start = False
@@ -114,17 +116,26 @@ if __name__ == "__main__":
         output_fh.close()
         # Get the file that contains the instructions
         fh = open(sys.argv[1], 'r')
+        for line in fh:
+            if line.startswith('#'):
+                pass
+            else:
+                AllTheLines.append(line)
         # Extract the size of the grid and set it as global
-        size_of_grid = fh.readline()
+        size_of_grid = AllTheLines[0]
         split_sog = size_of_grid.split()
         GridSizeX = int(split_sog[0])
         GridSizeY = int(split_sog[1])    
         smart_print("Grid Size X: "+str(GridSizeX)+ " Y: "+str(GridSizeY),0)
         # Extract the data from the file in order to create the rovers
-        for line in fh:
-            start_pos_array.append(line)
-            line = next(fh)
-            instructions_array.append(line)
+        for line_idx in range(0,len(AllTheLines)):            
+            # We have already pulled out the grid size.
+            if line_idx == 0:
+                continue
+            if line_idx % 2 == 0:
+                continue 
+            start_pos_array.append(AllTheLines[line_idx])
+            instructions_array.append(AllTheLines[line_idx+1])            
         # Now create the rovers with the data extracted in the last step
         create_rovers (start_pos_array,instructions_array)
         # Each rover object contains its own instructions so just execute them 

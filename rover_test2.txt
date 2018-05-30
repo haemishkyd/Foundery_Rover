@@ -1,3 +1,4 @@
+# This tests a slightly bigger grid with 4 rovers
 6 8
 0 0 N
 MMRMLMMRM

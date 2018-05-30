@@ -1,0 +1,8 @@
+#This tests one invalidly positioned rover and one invalidly orientate one.
+5 5
+0 0 N
+MMMMMMMMMMMMMM
+0 5 P
+MLMRMLMRMLMRMLMRMLMRML
+7 3 N
+MLMRMLMRMLMRM

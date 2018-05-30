@@ -1,3 +1,4 @@
+# This tests one invalidly created rover
 5 5
 0 0 N
 MMMMMMMMMMMMMM
