@@ -1,4 +1,6 @@
 import sys
+import time
+import matplotlib.pyplot as plt
 
 GridSizeX = 0
 GridSizeY = 0
@@ -6,16 +8,21 @@ global_script_verbosity = 0
 RoverArray = []
 
 class Rover:
-
+    
     def __init__ (self,x,y,o):
         self.x = x
         self.y = y
         self.o = o
+        self.array_of_x=[]
+        self.array_of_y=[]
+        self.array_of_x.append(self.x+0.5)
+        self.array_of_y.append(self.y+0.5)
         if ((x<=GridSizeX) and (y<=GridSizeY)):
             self.valid_start = True
         else:
             self.valid_start = False
         self.instruction_pointer = 0
+        
 
 
     def store_instructions(self,instruction_string):
@@ -82,6 +89,8 @@ class Rover:
             self.x = GridSizeX
         if (self.y > GridSizeY):
             self.y = GridSizeY
+        self.array_of_x.append(self.x+0.5)
+        self.array_of_y.append(self.y+0.5)
         
 
 
@@ -121,10 +130,18 @@ if __name__ == "__main__":
             instructions_array.append(line)
         # Now create the rovers with the data extracted in the last step
         create_rovers (start_pos_array,instructions_array)
+        # Intialise the graphing system
+        fig, ax = plt.subplots()
         # Each rover object contains its own instructions so just execute them 
-        for each_rover in RoverArray:        
+        for each_rover in RoverArray:  
+            plt.scatter(each_rover.array_of_x[0],each_rover.array_of_y[0],c='g')
             for instr_idx in range(0, each_rover.number_of_instructions()):
                 each_rover.step_instruction()
+                plt.plot(each_rover.array_of_x,each_rover.array_of_y)         
+            plt.scatter(each_rover.array_of_x[len(each_rover.array_of_x)-1],each_rover.array_of_y[len(each_rover.array_of_y)-1],c='r')
             # Print the final result for each rover
             each_rover.print_current_coordinates()
+        plt.axis([0,GridSizeX+1,0,GridSizeY+1])
+        plt.grid(True)
+        plt.show()
         
