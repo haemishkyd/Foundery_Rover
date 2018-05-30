@@ -96,6 +96,10 @@ class Rover:
 
 def smart_print(string_to_print, string_verbosity_level):
     if (string_verbosity_level <= global_script_verbosity):
+        output_fh = open("merchant_guide_output.txt", 'a')
+        output_fh.write(string_to_print)
+        output_fh.write("\n\r")
+        output_fh.close()
         print (string_to_print)
 
 
@@ -115,6 +119,8 @@ if __name__ == "__main__":
     if (len(sys.argv) == 1):
         smart_print("You need to specify an input file.",0)
     else:
+        output_fh = open("merchant_guide_output.txt", 'w')
+        output_fh.close()
         # Get the file that contains the instructions
         fh = open(sys.argv[1], 'r')
         # Extract the size of the grid and set it as global
