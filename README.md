@@ -7,6 +7,8 @@ Other than **sys** (in order to extract argument parameters) and **os** (for fil
 
 For the visual version of this excercise, the package **Matplotlib** has been used. This is however not essential and was done merely as a way to visualise the rover movements.
 
+In all instances the output is displayed on the screen and written to a file. The file is named *merchant_guide_output.txt* - because apparently copy paste errors are still a thing after you check your code 4 times.
+
 ## Executing
 To execute the script type: *python mars_rover.py <test_script>*
 
