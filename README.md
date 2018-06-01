@@ -26,3 +26,6 @@ All rovers that are in the file will be shown in one image as different colours.
 
 ## Assumptions
 None
+
+## Attribution
+The icon made by Freepik from www.flaticon.com 
